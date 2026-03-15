@@ -4,7 +4,7 @@ Built with discord.py v2.x + aiosqlite
 """
 
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 from discord import app_commands
 import aiosqlite
 import asyncio
