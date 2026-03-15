@@ -637,7 +637,7 @@ async def help_cmd(ctx):
 async def main():
     async with bot:
         await init_database()
-        await bot.start('YOUR_BOT_TOKEN_HERE')
+        await bot.start(os.getenv("TOKEN"))
 
 if __name__ == "__main__":
     try:
