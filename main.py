@@ -9,7 +9,7 @@ Framework: discord.py v2.3+
 Database: aiosqlite (SQLite with WAL)
 Deployment: Railway-optimized
 """
-
+import os
 import discord
 from discord.ext import commands, tasks
 from discord import app_commands
@@ -2430,7 +2430,7 @@ if __name__ == "__main__":
         
         # Run the bot with hardcoded token as per user request
         # For production, replace 'YOUR_BOT_TOKEN_HERE' with actual token
-        bot.run('YOUR_BOT_TOKEN_HERE')
+        bot.run(os.getenv("TOKEN"))
         
     except KeyboardInterrupt:
         logger.info("Bot shutdown requested by user")
