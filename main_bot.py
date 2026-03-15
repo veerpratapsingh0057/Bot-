@@ -1,6 +1,7 @@
 """
 Soviet Russia Life Simulator (SRLS) — Official Discord Bot
 Built with discord.py v2.x + aiosqlite
+By Veer Pratap Singh 
 """
 
 import discord
