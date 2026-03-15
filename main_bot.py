@@ -118,7 +118,7 @@ async def status_loop():
     try:
         # 1️⃣ Playing Soviet Russia Life Simulator
         await bot.change_presence(
-            status=discord.Status.dnd
+            status=discord.Status.dnd,
             activity=discord.Game(name="Soviet Russia Life Simulator")
         )
         await asyncio.sleep(30)
@@ -126,7 +126,7 @@ async def status_loop():
 
         # 3️⃣ Watching Happy Holi From Soviet Russia
         await bot.change_presence(
-            status=discord.Status.dnd
+            status=discord.Status.dnd,
             activity=discord.Activity(
                 type=discord.ActivityType.watching,
                 name="Happy Holi From Soviet Russia"
