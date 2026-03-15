@@ -113,35 +113,47 @@ def parse_duration(duration_str: str) -> datetime.timedelta | None:
             "h": datetime.timedelta(hours=value), "d": datetime.timedelta(days=value)}[unit]
 
 # ─── Events ───────────────────────────────────────────────────────────────────
-@tasks.loop(minutes=1)  # Change every 60 seconds (you can tweak this)
+@tasks.loop(seconds=60)
 async def status_loop():
-    try:
-        # 1️⃣ Playing Soviet Russia Life Simulator
-        await bot.change_presence(
-            status=discord.Status.dnd,
-            activity=discord.Game(name="Soviet Russia Life Simulator")
-        )
-        await asyncio.sleep(30)
 
+    await bot.change_presence(
+        status=discord.Status.dnd,
+        activity=discord.Game(name="Soviet Russia Life Simulator")
+    )
+    await asyncio.sleep(30)
 
-        # 3️⃣ Watching Happy Holi From Soviet Russia
-        await bot.change_presence(
-            status=discord.Status.dnd,
-            activity=discord.Activity(
-                type=discord.ActivityType.watching,
-                name="Happy Holi From Soviet Russia"
-            )
+    await bot.change_presence(
+        status=discord.Status.dnd,
+        activity=discord.Activity(
+            type=discord.ActivityType.watching,
+            name="Join the Revolution"
         )
-        await asyncio.sleep(30)
-    except Exception as e:
-        print(f"[Status Loop Error] {e}")
+    )
 
 
 @bot.event
 async def on_ready():
     await init_db()
+    
     await bot.tree.sync()
+    status_loop.start()
     print(f"[SRLS Bot] Logged in as {bot.user} | Guilds: {len(bot.guilds)}")
+
+@bot.event
+async def on_message(message):
+    if message.author.bot:
+        return
+
+    if bot.user in message.mentions:
+        embed = discord.Embed(
+            title="Soviet Russia Life Simulator",
+            description="Soviet Russia Life Simulator is a role-play game where players live a virtual life in a large city inspired by Soviet-style Russia. In the game, a player starts as a normal citizen and slowly builds their life by getting jobs, earning money, buying vehicles, and interacting with other players. Some players join government organizations like police or military, while others may choose criminal paths such as gangs or illegal businesses. The world is open and active, so players can explore the city, complete missions, and create their own stories with other people. The goal of the game is to simulate a realistic life system where every player’s choices affect their progress and reputation in the city.",
+            color=0xffcc00
+        )
+        await message.channel.send(embed=embed)
+
+    await bot.process_commands(message)
+
 
 # ════════════════════════════════════════════════════════════════════════════════
 #  MODERATION COMMANDS
